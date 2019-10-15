@@ -4,7 +4,8 @@ class Api::SqlController < ApplicationController
     @result = con.select_all(params["sql"])
 
     @keys = @result.columns
-    @result = @result.to_a
+    @result = @result.rows
+
 
     respond_to do |format|
       format.json {

@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 const initialSql = 'SELECT * FROM Users'
+const ngWordList = ['DELETE', 'DROP']
 
 class SqlForm extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class SqlForm extends React.Component {
       }
     }
     this.inputChange = this.inputChange.bind(this)
+    this.checkErrors = this.checkErrors.bind(this)
     this.submitSql = this.submitSql.bind(this)
   }
 
@@ -25,7 +27,25 @@ class SqlForm extends React.Component {
     })
   }
 
+  checkErrors() {
+    const sql = this.state.data.sql.toUpperCase().replace(/\r?\n/g, '').replace(/\s+/g, '')
+    console.log(sql)
+    console.log(ngWordList)
+    console.log(ngWordList.includes(sql))
+
+    for(let n=0;n<ngWordList.length;n++) {
+      if (sql.indexOf(ngWordList[n]) > -1) {
+        return true
+      }
+    }
+    return false
+  }
+
   submitSql() {
+    if (this.checkErrors()) {
+      alert('delete、dropは使わないでください（>_<）')
+      return false
+    }
     const sql = this.state.data.sql.replace(/"/g, "\'")
     axios({
       method: 'POST',
@@ -56,8 +76,8 @@ class SqlForm extends React.Component {
     const resultsList = this.state.data.results.map((rst) =>
       <tr>
         {
-          this.state.data.keys.map((key, index) =>
-            <td key={index}>{rst[key]}</td>
+          rst.map((r, index) =>
+            <td key={index}>{r}</td>
           )
         }
       </tr>
