@@ -22,13 +22,19 @@ class SqlForm extends React.Component {
   }
 
   submitSql() {
+    const data = {
+      sql: 'this.state.data.sql',
+      test: 'test'
+    }
     axios({
       method: 'POST',
       url: '/api/submit_sql?format=json',
-      data: this.state.data,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
         'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
+      },
+      data: {
+        sql: this.state.data.sql,
       }
     }).then((res) => {
       console.log(res.data)
