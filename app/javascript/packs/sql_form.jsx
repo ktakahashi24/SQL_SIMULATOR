@@ -69,7 +69,6 @@ class SqlForm extends React.Component {
   }
 
   render() {
-    let index = 0
     const resultListHeader = this.state.data.keys.map((key, index) =>
       <th key={index}>{key}</th>
     )
@@ -87,7 +86,7 @@ class SqlForm extends React.Component {
       <React.Fragment>
         <h2>Enjoy SQL!!!</h2>
         <textarea className="sql-area__textarea" name="sql" defaultValue={this.state.data.sql} onChange={this.inputChange}/>
-        <button onClick={() => {this.submitSql()}}>SQL実行dayo★</button>
+        <button onClick={() => {this.submitSql()}} className="sql-area__submit">SQL実行</button>
 
         <div className="result">
           <table className="result__table">
