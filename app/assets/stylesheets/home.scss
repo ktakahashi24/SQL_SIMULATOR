@@ -1,0 +1,14 @@
+.main-content {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.sql-area {
+  &__textarea {
+    border: 1px solid #c0c0c0;
+    font-size: 20px;
+    height: 100px;
+    padding: 10px 15px;
+    width: 100%;
+  }
+}

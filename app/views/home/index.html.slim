@@ -1,0 +1,5 @@
+h2 Home
+.sql-area
+  = form_with url: submit_sql_path do |f|
+    = f.text_area :sql, class: "sql-area__textarea"
+    = f.submit "SQL実行"
