@@ -12,3 +12,25 @@
     width: 100%;
   }
 }
+
+.result {
+  table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 90%;
+
+    tr{
+      border-bottom: solid 1px #eee;
+      cursor: pointer;
+      &:hover{
+        background-color: #d4f0fd;
+      }
+    }
+
+    th, td{
+      text-align: center;
+      width: 25%;
+      padding: 15px 0;
+    }
+  }
+}

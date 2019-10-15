@@ -1,12 +1,16 @@
 import React from 'react'
 import axios from 'axios'
 
+const initialSql = 'SELECT * FROM Users'
+
 class SqlForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       data: {
-        sql: 'SELECT * FROM Users'
+        sql: initialSql,
+        results: [],
+        keys: []
       }
     }
     this.inputChange = this.inputChange.bind(this)
@@ -22,10 +26,7 @@ class SqlForm extends React.Component {
   }
 
   submitSql() {
-    const data = {
-      sql: 'this.state.data.sql',
-      test: 'test'
-    }
+    const sql = this.state.data.sql.replace(/"/g, "\'")
     axios({
       method: 'POST',
       url: '/api/submit_sql?format=json',
@@ -34,19 +35,52 @@ class SqlForm extends React.Component {
         'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
       },
       data: {
-        sql: this.state.data.sql,
+        sql: sql,
       }
     }).then((res) => {
-      console.log(res.data)
+      this.setState({
+        data: {
+          sql: initialSql,
+          results: res.data.result,
+          keys: res.data.keys
+        }
+      })
     })
   }
 
   render() {
+    let index = 0
+    const resultListHeader = this.state.data.keys.map((key, index) =>
+      <th key={index}>{key}</th>
+    )
+    const resultsList = this.state.data.results.map((rst) =>
+      <tr>
+        {
+          this.state.data.keys.map((key, index) =>
+            <td key={index}>{rst[key]}</td>
+          )
+        }
+      </tr>
+    )
+
     return (
       <React.Fragment>
         <h2>Enjoy SQL!!!</h2>
         <textarea className="sql-area__textarea" name="sql" defaultValue={this.state.data.sql} onChange={this.inputChange}/>
         <button onClick={() => {this.submitSql()}}>SQL実行dayo★</button>
+
+        <div className="result">
+          <table className="result__table">
+            <thead>
+              <tr>
+                {resultListHeader}
+              </tr>
+            </thead>
+            <tbody>
+              {resultsList}
+            </tbody>
+          </table>
+        </div>
       </React.Fragment>
     )
   }
