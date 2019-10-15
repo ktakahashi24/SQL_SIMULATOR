@@ -24,7 +24,7 @@ class SqlForm extends React.Component {
   submitSql() {
     axios({
       method: 'POST',
-      url: '/api/sql_submit?format=json',
+      url: '/api/submit_sql?format=json',
       data: this.state.data,
       headers: {
         'Content-Type': 'multipart/form-data',
