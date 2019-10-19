@@ -60,7 +60,6 @@ class SqlForm extends React.Component {
     }).then((res) => {
       this.setState({
         data: {
-          sql: initialSql,
           results: res.data.result,
           keys: res.data.keys
         }
