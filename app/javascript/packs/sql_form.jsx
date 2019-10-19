@@ -11,7 +11,8 @@ class SqlForm extends React.Component {
       data: {
         sql: initialSql,
         results: [],
-        keys: []
+        keys: [],
+        error: ''
       }
     }
     this.inputChange = this.inputChange.bind(this)
@@ -29,9 +30,6 @@ class SqlForm extends React.Component {
 
   checkErrors() {
     const sql = this.state.data.sql.toUpperCase().replace(/\r?\n/g, '').replace(/\s+/g, '')
-    console.log(sql)
-    console.log(ngWordList)
-    console.log(ngWordList.includes(sql))
 
     for(let n=0;n<ngWordList.length;n++) {
       if (sql.indexOf(ngWordList[n]) > -1) {
@@ -57,11 +55,22 @@ class SqlForm extends React.Component {
       data: {
         sql: sql,
       }
-    }).then((res) => {
+    }).then(res => {
       this.setState({
         data: {
           results: res.data.result,
-          keys: res.data.keys
+          keys: res.data.keys,
+          error: ''
+        }
+      })
+    }).catch(error => {
+      console.log(error.response)
+      console.log(`error: ${error.message}`)
+      this.setState({
+        data: {
+          results: [],
+          keys: [],
+          error: error.response.data.message
         }
       })
     })
@@ -84,6 +93,7 @@ class SqlForm extends React.Component {
     return (
       <React.Fragment>
         <h2>Enjoy SQL!!!</h2>
+        <div className="error">{this.state.data.error}</div>
         <textarea className="sql-area__textarea" name="sql" defaultValue={this.state.data.sql} onChange={this.inputChange}/>
         <button onClick={() => {this.submitSql()}} className="sql-area__submit">SQL実行</button>
 

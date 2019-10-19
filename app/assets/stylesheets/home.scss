@@ -2,7 +2,11 @@
   width: 90%;
   margin: 0 auto;
 }
-
+.error {
+  min-height: 30px;
+  color: red;
+  font-weight: bold;
+}
 .table-info {
   &__items {
     display: flex;
