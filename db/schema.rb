@@ -10,13 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_143016) do
+ActiveRecord::Schema.define(version: 2019_10_17_131234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "areas", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "hobbies", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "item_evaluations", force: :cascade do |t|
+    t.integer "item_id"
+    t.integer "user_id"
+    t.float "star"
+    t.index ["item_id"], name: "index_item_evaluations_on_item_id"
+    t.index ["user_id"], name: "index_item_evaluations_on_user_id"
+  end
+
+  create_table "item_images", force: :cascade do |t|
+    t.integer "item_id"
+    t.string "image"
+    t.index ["item_id"], name: "index_item_images_on_item_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "area_id"
+    t.index ["area_id"], name: "index_items_on_area_id"
   end
 
   create_table "users", force: :cascade do |t|

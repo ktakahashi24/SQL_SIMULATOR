@@ -3,6 +3,28 @@
   margin: 0 auto;
 }
 
+.table-info {
+  &__items {
+    display: flex;
+  }
+  &__item {
+    margin: 0 15px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    padding: 10px 15px;
+  }
+  h3 {
+    margin: 0;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
 .sql-area {
   &__textarea {
     border: 1px solid #c0c0c0;

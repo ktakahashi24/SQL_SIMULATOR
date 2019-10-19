@@ -1,0 +1,9 @@
+.table-info
+  h2 tables
+  .table-info__items
+    - @table_info.each do |table|
+      .table-info__item
+        h3 = table["table"]
+        ul
+          - table["columns"].each do |col|
+            li = col.name
