@@ -1,0 +1,2 @@
+class ItemEvaluation < ApplicationRecord
+end
