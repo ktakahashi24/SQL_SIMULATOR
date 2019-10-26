@@ -12,6 +12,7 @@ class SqlForm extends React.Component {
         sql: initialSql,
         results: [],
         keys: [],
+        success: '',
         error: ''
       }
     }
@@ -23,6 +24,7 @@ class SqlForm extends React.Component {
   inputChange(e) {
     let data = this.state.data
     data[e.target.name] = e.target.value
+    data['success'] = ''
     this.setState({
       data: data
     })
@@ -53,13 +55,14 @@ class SqlForm extends React.Component {
         'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
       },
       data: {
-        sql: sql,
+        sql: sql
       }
     }).then(res => {
       this.setState({
         data: {
           results: res.data.result,
           keys: res.data.keys,
+          success: 'success',
           error: ''
         }
       })
@@ -93,7 +96,10 @@ class SqlForm extends React.Component {
     return (
       <React.Fragment>
         <h2>Enjoy SQL!!!</h2>
-        <div className="error">{this.state.data.error}</div>
+        <div className="message">
+          <span className="error">{this.state.data.error}</span>
+          <span className="success">{this.state.data.success}</span>
+        </div>
         <textarea className="sql-area__textarea" name="sql" defaultValue={this.state.data.sql} onChange={this.inputChange}/>
         <button onClick={() => {this.submitSql()}} className="sql-area__submit">SQL実行</button>
 
