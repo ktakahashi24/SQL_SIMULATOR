@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 const initialSql = 'SELECT * FROM Users'
-const ngWordList = ['DELETE', 'DROP']
+const ngWordList = ['DELETE', 'DROP', 'INSERT', 'UPDATE']
 
 class SqlForm extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class SqlForm extends React.Component {
 
   submitSql() {
     if (this.checkErrors()) {
-      alert('delete、dropは使わないでください（>_<）')
+      alert('delete、drop, insert, updateは使わないでください（>_<）')
       return false
     }
     const sql = this.state.data.sql.replace(/"/g, "\'")
