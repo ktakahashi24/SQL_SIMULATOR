@@ -1,5 +1,10 @@
+body {
+  background-color: #ffffffd3;
+  font-family: 'Roboto', sans-serif;
+  color: #1d1c1c;
+}
 .main-content {
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   h2 {
     margin: 3px 0;
@@ -74,6 +79,32 @@
       text-align: center;
       padding: 15px 0;
       max-width: 25%;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1440px) {
+  .main-body {
+    display: flex;
+    &__sql {
+      width: 95%;
+    }
+    &__add {
+      width: 5%;
+    }
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  .main-body {
+    display: block;
+    &__sql {
+      width: 100%;
+    }
+    &__ad {
+      margin-top: 30px;
+      width: 100%;
     }
   }
 }
