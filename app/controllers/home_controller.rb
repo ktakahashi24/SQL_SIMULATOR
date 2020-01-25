@@ -17,7 +17,7 @@ class HomeController < ApplicationController
 
   def submit_sql
     con = ActiveRecord::Base.connection
-    @result = con.select_all(params[:sql]).to_a
+    @result = con.select_all(sql_upper).to_a
     render json: @result
   end
 end

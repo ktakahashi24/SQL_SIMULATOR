@@ -43,7 +43,14 @@ class SqlForm extends React.Component {
 
   submitSql() {
     if (this.checkErrors()) {
-      alert('delete、drop, insert, updateは使わないでください（>_<）')
+      this.setState({
+        data: {
+          results: [],
+          keys: [],
+          success: '',
+          error: 'delete、drop, insert, updateは使わないでください（>_<）'
+        }
+      })
       return false
     }
     const sql = this.state.data.sql.replace(/"/g, "\'")
